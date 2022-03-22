@@ -1,57 +1,38 @@
 #include<iostream>
-#include<string>
+#define MAX 100
 using namespace std;
-string nfa_transition_0[100];
-string nfa_transition_1[100];
-string dfa_state_name[100];
-string dfa_transition_0[100];
-string dfa_transiton_1[100];
-char pick_state_array[100];
+string nfa_transition_0[MAX], nfa_transition_1[MAX];
 
-string pick_state(string str)
+void print_nfa(int state_num)
 {
-    int len = str.length();
-    bool dis;
-
-    for(int i=0;i<len;i++)
+    cout<<"State\t0\t1"<<endl;
+    for(int i=0; i<state_num;i++)
     {
-        if(str[i]!=',')
-        {
-            for(int j=0; j<i; j++)
-            {
-                if(str[i]==str[j])
-                {
-                    dis==false;
-                }
-            }
-        }
-    }
-}
-
-void print_nfa(int total_state)
-{
-    for(int i=1;i<=total_state;i++)
-    {
-        cout<<(char)i+64<<"\t"<<nfa_transition_0[i]<<"\t"<<nfa_transition_1[i]<<endl;
+        cout<<(char)(i+65)<<"\t"<<nfa_transition_0[i]<<"\t"<<nfa_transition_1[i]<<endl;
     }
 }
 int main()
 {
-    int nfa_total_state,i;
-    cout<<"The number of state in NFA : ";
-    cin>>nfa_total_state;
+    int num_of_NFA_state,i;
+    string str;
 
-    cout<<"Enter the NFA transition table, enter -1 if there is no outgoing transition for that input"<<endl;
+    cout<<"How many states of the NFA: ";
+    cin>>num_of_NFA_state;
 
-    for(i=1;i<=nfa_total_state;i++)
+    for(i=0;i<num_of_NFA_state;i++)
     {
-        cout<<"From state "<<(char)(i+64)<<" through 0 transition : ";
-        cin>>nfa_transition_0[i];
-        cout<<"From state "<<(char)(i+64)<<" through 0 transition : ";
-        cin>>nfa_transition_1[i];
-    }
+        cout<<"From state "<<(char)(i+65)<<" through 0 transition : ";
+        cin>>str;
+        nfa_transition_0[i]=str;
+        //cin>>nfa_transition_0[i];
 
-    print_nfa(nfa_total_state);
+        cout<<"From state "<<(char)(i+65)<<" through 1 transition : ";
+        cin>>str;
+        nfa_transition_1[i]=str;
+
+        //cout<<"value of i"<<i;
+    }
+    print_nfa(num_of_NFA_state);
 
 
 }
