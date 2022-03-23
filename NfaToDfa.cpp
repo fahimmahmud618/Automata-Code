@@ -22,7 +22,7 @@ void print_dfa(int state_num)
     cout<<"State\t0\t1"<<endl;
     for(int i=0; i<state_num;i++)
     {
-        cout<<dfa_state[i]<<"\t"<<dfa_transition_0[i]<<"\t"<<dfa_transition_1[i]<<endl;
+        cout<<dfa_state[i].c_str()<<"\t"<<dfa_transition_0[i].c_str()<<"\t"<<dfa_transition_1[i].c_str()<<endl;
     }
 }
 int calc_string_len(string input)
@@ -127,30 +127,30 @@ void convert_nfa_dfa()
 {
     int tmp;
     dfa_state[0]=(char)65;
-    num_of_DFA_state++;
+    num_of_DFA_state++;     cout<<"Now num of dfa state: "<<num_of_DFA_state<<dfa_state[num_of_DFA_state-1]<<endl;
     dfa_transition_0[0]=nfa_transition_0[0];
     dfa_transition_1[0]=nfa_transition_1[0];
     
-    new_state[0]=dfa_transition_0[0];   num_of_new_state++;
-    new_state[1]=dfa_transition_1[0];   num_of_new_state++;
+    new_state[0]=dfa_transition_0[0];   num_of_new_state++;     cout<<"New state no: "<<(num_of_new_state-1)<<new_state[num_of_new_state-1]<<endl;
+    new_state[1]=dfa_transition_1[0];   num_of_new_state++;     cout<<"New state no: "<<(num_of_new_state-1)<<new_state[num_of_new_state-1]<<endl;
     
     for(int i=0;i<num_of_new_state;i++)
     {
         if(searchState(new_state[i]))
         {
             dfa_state[num_of_DFA_state]=new_state[i];
-            num_of_DFA_state++;
+            num_of_DFA_state++;     cout<<"Now num of dfa state: "<<num_of_DFA_state<<dfa_state[num_of_DFA_state-1]<<endl;
             
-            tmp = pick_state(dfa_state[num_of_DFA_state],0);
+            tmp = pick_state(dfa_state[num_of_DFA_state-1],0); cout<<"value of tmp : "<<tmp<<endl;
             for(int j=0;j<tmp;j++)
-                dfa_transition_0[num_of_DFA_state][j]=transiiton[j];
-            new_state[num_of_new_state]=dfa_transition_0[num_of_DFA_state];
+                dfa_transition_0[num_of_DFA_state-1][j]=transiiton[j];
+            new_state[num_of_new_state]=dfa_transition_0[num_of_DFA_state-1];
             num_of_new_state++;
                 
-            tmp = pick_state(dfa_state[num_of_DFA_state],1);
+            tmp = pick_state(dfa_state[num_of_DFA_state-1],1);
             for(int j=0;j<tmp;j++)
-                dfa_transition_1[num_of_DFA_state][j]=transiiton[j];
-            new_state[num_of_new_state]=dfa_transition_1[num_of_DFA_state];
+                dfa_transition_1[num_of_DFA_state-1][j]=transiiton[j];
+            new_state[num_of_new_state]=dfa_transition_1[num_of_DFA_state-1];
             num_of_new_state++;
 
         }
