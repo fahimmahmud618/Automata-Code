@@ -10,6 +10,7 @@ string transiiton;
 
 void print_nfa(int state_num)
 {
+    cout<<endl<<endl<<"________________NFA Transition Table________________"<<endl<<endl;
     cout<<"State\t0\t1"<<endl;
     for(int i=0; i<state_num;i++)
     {
@@ -19,6 +20,7 @@ void print_nfa(int state_num)
 
 void print_dfa(int state_num)
 {
+    cout<<endl<<endl<<"________________DFA Transition Table________________"<<endl<<endl;
     cout<<"State\t0\t1"<<endl;
     for(int i=0; i<state_num;i++)
     {
@@ -41,20 +43,20 @@ int make_union(int t,int input)
         {
 
             transiiton = transiiton + nfa_transition_0[uni_array[i]];
-            cout<<transiiton<<"?";
+            //cout<<transiiton<<"?";
         }
 
         else
         {
 
             transiiton = transiiton + nfa_transition_1[uni_array[i]];
-            cout<<transiiton<<"?";
+            //cout<<transiiton<<"?";
         }
     }
     sort(transiiton.begin(), transiiton.end());
 
     string s = transiiton;
-    cout<<"Value of s "<<transiiton<<"printed"<<endl;
+    //cout<<"Value of s "<<transiiton<<"printed"<<endl;
     bool dis=true;
     transiiton.clear();
     int len = calc_string_len(s),p=0;
@@ -127,31 +129,31 @@ void convert_nfa_dfa()
 {
     int tmp;
     dfa_state[0]=(char)65;
-    num_of_DFA_state++;     cout<<"Now num of dfa state: "<<num_of_DFA_state<<dfa_state[num_of_DFA_state-1]<<endl;
+    num_of_DFA_state++;     //cout<<"Now num of dfa state: "<<num_of_DFA_state<<dfa_state[num_of_DFA_state-1]<<endl;
     dfa_transition_0[0]=nfa_transition_0[0];
     dfa_transition_1[0]=nfa_transition_1[0];
     
-    new_state[0]=dfa_transition_0[0];   num_of_new_state++;     cout<<"New state no: "<<(num_of_new_state-1)<<new_state[num_of_new_state-1]<<endl;
-    new_state[1]=dfa_transition_1[0];   num_of_new_state++;     cout<<"New state no: "<<(num_of_new_state-1)<<new_state[num_of_new_state-1]<<endl;
+    new_state[0]=dfa_transition_0[0];   num_of_new_state++;     //cout<<"New state no: "<<(num_of_new_state-1)<<new_state[num_of_new_state-1]<<endl;
+    new_state[1]=dfa_transition_1[0];   num_of_new_state++;     //cout<<"New state no: "<<(num_of_new_state-1)<<new_state[num_of_new_state-1]<<endl;
     
     for(int i=0;i<num_of_new_state;i++)
     {
         if(searchState(new_state[i]))
         {
             dfa_state[num_of_DFA_state]=new_state[i];
-            num_of_DFA_state++;     cout<<"Now num of dfa state: "<<num_of_DFA_state<<dfa_state[num_of_DFA_state-1]<<endl;
+            num_of_DFA_state++;     //cout<<"Now num of dfa state: "<<num_of_DFA_state<<dfa_state[num_of_DFA_state-1]<<endl;
             
-            tmp = pick_state(dfa_state[num_of_DFA_state-1],0); cout<<"value of tmp : "<<tmp<<endl;
-            for(int j=0;j<tmp;j++)
+            tmp = pick_state(dfa_state[num_of_DFA_state-1],0); //cout<<"value of tmp : "<<tmp<<endl;
+            for(int j=0;j<tmp-1;j++)
                 dfa_transition_0[num_of_DFA_state-1][j]=transiiton[j];
-            new_state[num_of_new_state]=dfa_transition_0[num_of_DFA_state-1];
-            num_of_new_state++;
+            new_state[num_of_new_state].assign(dfa_transition_0[num_of_DFA_state-1]);
+            num_of_new_state++;         //cout<<"New state no: "<<(num_of_new_state-1)<<new_state[num_of_new_state-1]<<endl;
                 
             tmp = pick_state(dfa_state[num_of_DFA_state-1],1);
-            for(int j=0;j<tmp;j++)
+            for(int j=0;j<tmp-1;j++)
                 dfa_transition_1[num_of_DFA_state-1][j]=transiiton[j];
-            new_state[num_of_new_state]=dfa_transition_1[num_of_DFA_state-1];
-            num_of_new_state++;
+            new_state[num_of_new_state].assign(dfa_transition_1[num_of_DFA_state-1]);
+            num_of_new_state++;     //cout<<"New state no: "<<(num_of_new_state-1)<<new_state[num_of_new_state-1]<<endl;
 
         }
             
@@ -170,11 +172,15 @@ int main()
     {
         cout<<"From state "<<(char)(i+65)<<" through 0 transition : ";
         cin>>str;
+        if(str=="-1")
+            str.clear();
         nfa_transition_0[i]=str;
         //cin>>nfa_transition_0[i];
 
         cout<<"From state "<<(char)(i+65)<<" through 1 transition : ";
         cin>>str;
+        if(str=="-1")
+            str.clear();
         nfa_transition_1[i]=str;
 
         //cout<<"value of i"<<i;
