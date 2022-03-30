@@ -3,6 +3,7 @@ using namespace std;
 string taken_input, maching;
 string grammer[3]={"E+E","E*E","(E)"};
 int main_len;
+
 int calc_string_len(string input)
 {
     int i;
@@ -35,7 +36,8 @@ void short_string(int start)
     }
     main_len = main_len -3;
 }
-//0+(1+(0+1)+1)
+
+
 int main()
 {
     int i,j;
@@ -43,9 +45,9 @@ int main()
     cin>>taken_input;
     main_len = calc_string_len(taken_input);
     
-    int taken_input_len= calc_string_len(taken_input);
+    //int taken_input_len= calc_string_len(taken_input);
     
-    for(i=0;i<taken_input_len;i++)
+    for(i=0;i<main_len;i++)
     {
         if((taken_input[i]=='0')||(taken_input[i]=='1'))
         taken_input[i]='E';
@@ -67,10 +69,13 @@ int main()
         
         
     }
-    if(main_len==1)
+    if((main_len==1)||(main_len==0))
     cout<<"String accept the grammer";
     else
     cout<<"String doesn't accept the grammer";
     
     return 0;
 }
+
+//0+(1+(0+1)+1)
+//0*(1+(0*1))+1
