@@ -57,7 +57,7 @@ int main()
     {
         if(guess_half(i))
         {
-            half_pos=3;
+            half_pos=i;
 
             for(k=0;k<half_pos;k++)
                 cout<<"A--"<<"("<<taken_string[k]<<")"<<"-->";
