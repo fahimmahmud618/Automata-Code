@@ -3,17 +3,38 @@
 using namespace std;
 string transition[12];
 stack<char> stk;
+stack<char> stk2;
 string taken_string;
 int i,len,j,curr_pos=0;
 char curr_state = 'A';
 
-bool guess_half()
+bool guess_half(int position)
 {
-    curr_state = 'B';
+    while(!stk2.empty())
+    stk2.pop();
+
+    for(i=0;i<position;i++)
+        stk2.push(taken_string[i]);
+        i--;
+    for(j=position;j<position*2;j++)
+    {
+        if(stk2.top()==taken_string[j])
+        {
+            //cout<<i<<" "<<stk2.top()<<" "<<taken_string[i]<<endl;
+            stk2.pop();
+            i--;
+        }
+    }
+
+
+    if(stk2.empty())
+        return true;
+    else
+        return false;
 }
 int main()
 {
-    transition[0]="A0NAP";
+    /*transition[0]="A0NAP";
     transition[1]="A1NAP";
     transition[2]="A00AP";
     transition[3]="A01AP";
@@ -24,22 +45,31 @@ int main()
     transition[8]="AN1B1";
     transition[9]="B00BO";
     transition[10]="B11BO";
-    transition[11]="BNNCN";
-    
-    
-    cout<<"Enter a string :";
+    transition[11]="BNNCN";*/
+
+
+    cout<<"Enter a string : ";
     cin>>taken_string;
     len = taken_string.size();
-    
+    int half_pos,k;
+
     for(i=0;i<len;i++)
     {
-        for(j=0;j<12;j++)
+        if(guess_half(i))
         {
-            
+            half_pos=3;
+
+            for(k=0;k<half_pos;k++)
+                cout<<"A--"<<"("<<taken_string[k]<<")"<<"-->";
+            cout<<"A--(e)-->B";
+            for(k=half_pos;k<len;k++)
+                cout<<"B--"<<"("<<taken_string[k]<<")"<<"-->";
+            cout<<"B--(e)-->C";
+
+            cout<<endl<<endl<<"String Accepted";
+            return 0;
         }
     }
-    
-    cout<<"Hello World";
+    cout<<endl<<"String doesn't accepted";
 
-    return 0;
 }
